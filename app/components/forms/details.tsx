@@ -78,11 +78,9 @@ const formSchema = z.object({
     .min(1, data.insurance.error),
   phone: z
     .string({ error: data.phone.error })
-    .min(11, data.phone.error)
-    .max(11, data.phone.error),
-  agency_type: z
-    .enum(["real", "legal"], { error: data.agency_type.error })
-    .nullable(),
+    .min(10, data.phone.error)
+    .max(10, data.phone.error),
+  agency_type: z.enum(["real", "legal"], { error: data.agency_type.error }),
   name: z.string().optional(),
 });
 
@@ -129,7 +127,7 @@ export const DetailsForm: FC<Props> = ({
       address: "",
       insurance: "",
       phone: "",
-      agency_type: null,
+      agency_type: undefined,
     },
     resolver: zodResolver(formSchema),
   });
@@ -263,12 +261,18 @@ export const DetailsForm: FC<Props> = ({
           render={({ field: { onChange, value } }) => (
             <Autocomplete
               fullWidth
-              onChange={onChange}
+              onChange={(_, selectedOption) => {
+                onChange(selectedOption?.value || "");
+              }}
               options={wopOptions}
-              inputValue={value}
-              onInputChange={(event, value) => {
-                onChange(value);
-                onChangeWopName(value);
+              value={
+                wopOptions.find((option) => option.value === value) || null
+              }
+              inputValue={
+                wopOptions.find((option) => option.value === value)?.label || ""
+              }
+              onInputChange={(_, inputValue) => {
+                onChangeWopName(inputValue);
               }}
               renderInput={(params) => (
                 <TextField

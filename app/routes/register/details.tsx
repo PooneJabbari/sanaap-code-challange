@@ -5,11 +5,12 @@ import { DetailsForm } from "~/components/forms/details";
 import { useGetCounties, useGetProvinces } from "~/api/base";
 import { useState } from "react";
 import { useGetWop } from "~/api/app";
-import { useCheckAgentCode } from "~/api/auth";
+import { useCheckAgentCode, useSignup } from "~/api/auth";
 import { pushToast } from "~/components/toast";
 
 export default function Details() {
   const navigate = useNavigate();
+  const { phone_number, first_name, last_name } = useRegistrationStore();
   const [provinceId, setProvinceId] = useState<string | null>(null);
   const [wopName, setWopName] = useState<string | null>(null);
   const { data: provinces } = useGetProvinces();
@@ -32,6 +33,18 @@ export default function Details() {
     },
   );
 
+  const { mutate: signup, isPending: isSignupPending } = useSignup({
+    onSuccess: () => {
+      pushToast({ content: "ثبت نام با موفقیت انجام شد", type: "success" });
+    },
+    onError: ({ response }) => {
+      pushToast({
+        content: response.data.error_details.fa_details,
+        type: "error",
+      });
+    },
+  });
+
   const { mutate: checkAgentCode, isSuccess: isAgentCodeValid } =
     useCheckAgentCode({
       onSuccess: () => {
@@ -49,9 +62,18 @@ export default function Details() {
     <Box sx={{ width: "100%" }}>
       <DetailsForm
         onSubmit={(data) => {
-          console.log(data);
+          signup({
+            phone_number,
+            first_name,
+            last_name,
+            city_code: data.city,
+            county: data.city,
+            insurance_branch: data.insurance,
+            name: data.name ?? "",
+            ...data,
+          });
         }}
-        isLoading={false}
+        isLoading={isSignupPending}
         provinceOptions={
           provinces?.map(({ id, name }) => ({
             value: id.toString(),
