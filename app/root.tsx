@@ -25,20 +25,21 @@ const rtlCache = createCache({
   stylisPlugins: [prefixer, rtlPlugin],
   prepend: true,
 });
+
 const Providers = ({ children }: { children: React.ReactNode }) => (
   <CacheProvider value={rtlCache}>
-    <ThemeProvider theme={theme}>
-      <CssBaseline />
-      <ReactQueryClientProvider>
+    <ReactQueryClientProvider>
+      <ThemeProvider theme={theme}>
+        <CssBaseline />
         <ToastContainer>{children}</ToastContainer>
-      </ReactQueryClientProvider>
-    </ThemeProvider>
+      </ThemeProvider>
+    </ReactQueryClientProvider>
   </CacheProvider>
 );
 
 export function Layout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="fa-IR">
+    <html lang="fa-IR" dir="rtl">
       <head>
         <meta charSet="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />

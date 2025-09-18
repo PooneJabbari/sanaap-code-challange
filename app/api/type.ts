@@ -5,10 +5,16 @@ import type {
 import type { AxiosError, AxiosResponse } from "axios";
 
 export type ResponseError = {
-  code: string;
+  status_code: number;
   message: string;
-  status: string;
-  type: string;
+  is_success: boolean;
+  error_details: {
+    type: string;
+    code: string;
+    detail: string;
+    attr: string;
+    fa_details: string;
+  };
 };
 
 export type CustomAxiosError<T = unknown, D = any> = Omit<

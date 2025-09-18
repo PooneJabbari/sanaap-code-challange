@@ -76,6 +76,7 @@ export const PhoneNumberForm: FC<Props> = ({ onSubmit, isLoading }) => {
               placeholder={phoneNumber.placeholder}
               value={value}
               onChange={onChange}
+              error={!!errors.phone_number}
               helperText={errors.phone_number?.message}
             />
           )}

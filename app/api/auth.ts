@@ -11,11 +11,15 @@ export type CreateOtpRequest = {
 };
 
 type CreateOtpResponse = {
-  id: string;
+  status_code: number;
+  message: string;
+  is_success: boolean;
+  error_details: null;
+  response: string;
 };
 
 export const CreateOtp = async ({ ...req }: CreateOtpRequest) => {
-  const res = await api.post<CreateOtpResponse>(baseRoute(`/create_otp/`), req);
+  const res = await api.post<CreateOtpResponse>(baseRoute(`create_otp/`), req);
   return res.data;
 };
 
