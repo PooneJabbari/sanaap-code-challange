@@ -1,10 +1,19 @@
 import { Outlet } from "react-router";
+import { Logo } from "./icons";
+import { Box, Container, Paper } from "@mui/material";
 
 export default function Layout() {
   return (
-    <div className="font-sans text-black-50 w-full h-svh overflow-hidden relative flex flex-col">
-      <div className="h-52 rounded-b-2xl bg-primary absolute top-0 left-0 w-full" />
-      <Outlet />
-    </div>
+    <Box className="relative flex h-svh w-full flex-col gap-y-5 overflow-auto">
+      <Box className="bg-primary absolute top-0 left-0 h-52 w-full rounded-b-2xl" />
+      <Box className="relative flex items-center justify-center p-4">
+        <Logo />
+      </Box>
+      <Container maxWidth="sm">
+        <Paper>
+          <Outlet />
+        </Paper>
+      </Container>
+    </Box>
   );
 }
