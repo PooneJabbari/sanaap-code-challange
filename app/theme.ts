@@ -129,6 +129,16 @@ const theme = createTheme({
         },
       },
     },
+    MuiInputBase: {
+      styleOverrides: {
+        root: {
+          "&.Mui-disabled": {
+            backgroundColor: "#f6f6f8 !important",
+            color: "#1CAE81 !important",
+          },
+        },
+      },
+    },
   },
 });
 

@@ -1,4 +1,4 @@
-import { FormControl, MenuItem, Typography } from "@mui/material";
+import { Box, FormControl, MenuItem, Typography } from "@mui/material";
 import { InputLabel, Select } from "@mui/material";
 import type { ComponentProps, FC } from "react";
 
@@ -15,15 +15,22 @@ export const SelectMenu: FC<Props> = ({
   onChange,
   options,
   helperText,
-  fullWidth,
   ...props
 }) => (
-  <FormControl>
-    <InputLabel id={label}>{label}</InputLabel>
+  <FormControl fullWidth>
+    <InputLabel id={`${label}-label`}>{label}</InputLabel>
     <Select
-      labelId={label}
-      id={label + "id"}
+      labelId={`${label}-label`}
       onChange={(event) => onChange(event.target.value as string)}
+      MenuProps={{
+        PaperProps: {
+          component: Box,
+          sx: {
+            maxHeight: 300,
+            overflow: "auto",
+          },
+        },
+      }}
       {...props}>
       {options.map((option) => (
         <MenuItem key={option.value} value={option.value}>

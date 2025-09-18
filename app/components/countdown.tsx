@@ -41,7 +41,13 @@ export const CountDown = ({
           {finishedText}
         </Button>
       ) : (
-        <Typography dir="rtl" variant="12" sx={{ color: "grey.500" }}>
+        <Typography
+          variant="12"
+          sx={{
+            color: "grey.500",
+            textAlign: "left",
+            direction: "ltr",
+          }}>
           تا ارسال مجدد: {time}
         </Typography>
       )}
