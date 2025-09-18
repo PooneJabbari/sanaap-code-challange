@@ -1,7 +1,7 @@
 // Icons Barrel File
 
 export type IconProps = {
-  className?: string;
+  style?: React.CSSProperties;
 };
 
 export { Logo } from "./logo";

@@ -120,6 +120,15 @@ const theme = createTheme({
         },
       },
     },
+    MuiMenu: {
+      styleOverrides: {
+        paper: {
+          height: "auto",
+          maxHeight: "auto",
+          width: "auto",
+        },
+      },
+    },
   },
 });
 

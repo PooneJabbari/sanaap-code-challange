@@ -62,3 +62,32 @@ export const useValidateOtp = (
     ...options,
   });
 //#################################################################################
+
+//check-agent-code
+type CheckAgentCodeRequest = {
+  agent_code: string;
+};
+
+type CheckAgentCodeResponse = {
+  status_code: number;
+  message: string;
+  is_success: boolean;
+  error_details: null;
+  response: string;
+};
+
+export const CheckAgentCode = async ({ ...req }: CheckAgentCodeRequest) => {
+  const res = await api.post<CheckAgentCodeResponse>(
+    baseRoute(`check_agency_code/`),
+    req,
+  );
+  return res.data;
+};
+
+export const useCheckAgentCode = (
+  options?: MutationOptions<CheckAgentCodeResponse, CheckAgentCodeRequest>,
+) =>
+  useMutation({
+    mutationFn: CheckAgentCode,
+    ...options,
+  });
