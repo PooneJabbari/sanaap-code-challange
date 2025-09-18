@@ -60,7 +60,6 @@ A modern, full-stack React application built with React Router v7 for agent regi
 │   └── app.css                # Global styles
 ├── public/                    # Static assets
 ├── build/                     # Production build output
-├── Dockerfile                 # Docker configuration
 ├── package.json               # Dependencies and scripts
 └── vite.config.ts            # Vite configuration
 ```
@@ -118,7 +117,7 @@ A modern, full-stack React application built with React Router v7 for agent regi
 
 - Node.js 20 or higher
 - pnpm (recommended) or npm
-- Docker (optional, for containerized deployment)
+
 
 ### Installation
 
