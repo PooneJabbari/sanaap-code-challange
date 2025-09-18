@@ -7,12 +7,21 @@ import {
   ScrollRestoration,
 } from "react-router";
 import { ThemeProvider } from "@mui/material/styles";
+import { CacheProvider } from "@emotion/react";
+import createCache from "@emotion/cache";
+import { prefixer } from "stylis";
+import rtlPlugin from "@mui/stylis-plugin-rtl";
 import CssBaseline from "@mui/material/CssBaseline";
 import { Box, Typography } from "@mui/material";
 import theme from "./theme";
 
 import "./app.css";
 import type { Route } from "./+types/root";
+
+const rtlCache = createCache({
+  key: "muirtl",
+  stylisPlugins: [prefixer, rtlPlugin],
+});
 
 export function Layout({ children }: { children: React.ReactNode }) {
   return (
@@ -24,10 +33,12 @@ export function Layout({ children }: { children: React.ReactNode }) {
         <Links />
       </head>
       <body>
-        <ThemeProvider theme={theme}>
-          <CssBaseline />
-          {children}
-        </ThemeProvider>
+        <CacheProvider value={rtlCache}>
+          <ThemeProvider theme={theme}>
+            <CssBaseline />
+            {children}
+          </ThemeProvider>
+        </CacheProvider>
         <ScrollRestoration />
         <Scripts />
       </body>

@@ -1,13 +1,10 @@
-import type { Route } from "./+types/phone-number";
-import ExampleComponent from "../components/ExampleComponent";
-import { Box, Typography } from "@mui/material";
+import { Box } from "@mui/material";
+import { PhoneNumberForm } from "~/components/forms/phone-number";
 
 export default function PhoneNumber() {
   return (
-    <Box sx={{ display: "flex", flexDirection: "column", gap: 1 }}>
-      <Typography variant="h6" sx={{ color: "grey.500" }}>
-        شماره تلفن
-      </Typography>
+    <Box sx={{ width: "100%" }}>
+      <PhoneNumberForm onSubmit={() => {}} isLoading={false} />
     </Box>
   );
 }

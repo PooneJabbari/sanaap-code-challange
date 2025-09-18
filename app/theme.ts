@@ -1,6 +1,9 @@
 import { createTheme } from "@mui/material/styles";
+import rtlPlugin from "@mui/stylis-plugin-rtl";
+import { prefixer } from "stylis";
 
 const theme = createTheme({
+  direction: "rtl",
   palette: {
     primary: {
       main: "#017785",
@@ -22,6 +25,57 @@ const theme = createTheme({
   },
   typography: {
     fontFamily: "IRANSansFaNum",
+    "12": {
+      fontSize: "0.75rem", // 12px
+      lineHeight: "1rem", // 16px
+    },
+    "14": {
+      fontSize: "0.875rem", // 14px
+      lineHeight: "1.25rem", // 20px
+    },
+    "16": {
+      fontSize: "1rem", // 16px
+      lineHeight: "1.5rem", // 24px
+    },
+    "18": {
+      fontSize: "1.125rem", // 18px
+      lineHeight: "1.75rem", // 28px
+    },
+    "20": {
+      fontSize: "1.25rem", // 20px
+      lineHeight: "1.75rem", // 28px
+    },
+    "24": {
+      fontSize: "1.5rem", // 24px
+      lineHeight: "2rem", // 32px
+    },
+    "30": {
+      fontSize: "1.875rem", // 30px
+      lineHeight: "2.25rem", // 36px
+    },
+    "36": {
+      fontSize: "2.25rem", // 36px
+      lineHeight: "2.5rem", // 40px
+    },
+    "48": {
+      fontSize: "3rem", // 48px
+      lineHeight: 1,
+    },
+    "60": {
+      fontSize: "3.75rem", // 60px
+      lineHeight: 1,
+    },
+    "72": {
+      fontSize: "4.5rem", // 72px
+      lineHeight: 1,
+    },
+    "96": {
+      fontSize: "6rem", // 96px
+      lineHeight: 1,
+    },
+  },
+  shape: {
+    borderRadius: 8,
   },
   components: {
     MuiCssBaseline: {
@@ -60,5 +114,42 @@ const theme = createTheme({
     },
   },
 });
+
+// Add RTL plugin to the theme
+(theme as any).stylisPlugins = [prefixer, rtlPlugin];
+
+declare module "@mui/material/styles" {
+  interface TypographyVariantsOptions {
+    "12"?: React.CSSProperties;
+    "14"?: React.CSSProperties;
+    "16"?: React.CSSProperties;
+    "18"?: React.CSSProperties;
+    "20"?: React.CSSProperties;
+    "24"?: React.CSSProperties;
+    "30"?: React.CSSProperties;
+    "36"?: React.CSSProperties;
+    "48"?: React.CSSProperties;
+    "60"?: React.CSSProperties;
+    "72"?: React.CSSProperties;
+    "96"?: React.CSSProperties;
+  }
+}
+
+declare module "@mui/material/Typography" {
+  interface TypographyPropsVariantOverrides {
+    "12": true;
+    "14": true;
+    "16": true;
+    "18": true;
+    "20": true;
+    "24": true;
+    "30": true;
+    "36": true;
+    "48": true;
+    "60": true;
+    "72": true;
+    "96": true;
+  }
+}
 
 export default theme;

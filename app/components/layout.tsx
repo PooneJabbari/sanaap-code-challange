@@ -36,7 +36,7 @@ export default function Layout() {
         }}>
         <Logo />
       </Box>
-      <Container maxWidth="sm">
+      <Container maxWidth="xs">
         <Paper>
           <Outlet />
         </Paper>
