@@ -113,7 +113,7 @@ type SignupResponse = {
   message: string;
   is_success: boolean;
   error_details: null;
-  response: { access_token: string; refresh_token: string };
+  response: { access: string; refresh: string };
 };
 
 export const Signup = async ({ ...req }: SignupRequest) => {

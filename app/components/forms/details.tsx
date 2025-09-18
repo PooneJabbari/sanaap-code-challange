@@ -268,9 +268,6 @@ export const DetailsForm: FC<Props> = ({
               value={
                 wopOptions.find((option) => option.value === value) || null
               }
-              inputValue={
-                wopOptions.find((option) => option.value === value)?.label || ""
-              }
               onInputChange={(_, inputValue) => {
                 onChangeWopName(inputValue);
               }}

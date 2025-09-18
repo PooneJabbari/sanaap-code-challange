@@ -7,10 +7,12 @@ import { useState } from "react";
 import { useGetWop } from "~/api/app";
 import { useCheckAgentCode, useSignup } from "~/api/auth";
 import { pushToast } from "~/components/toast";
+import { useAuthStore } from "~/stores/auth";
 
 export default function Details() {
   const navigate = useNavigate();
   const { phone_number, first_name, last_name } = useRegistrationStore();
+  const { setAccessToken } = useAuthStore();
   const [provinceId, setProvinceId] = useState<string | null>(null);
   const [wopName, setWopName] = useState<string | null>(null);
   const { data: provinces } = useGetProvinces();
@@ -22,7 +24,7 @@ export default function Details() {
       enabled: !!provinceId,
     },
   );
-  const { data: wop, refetch: refetchWop } = useGetWop(
+  const { data: wop } = useGetWop(
     {
       province: provinceId ?? 0,
       name: wopName ?? "",
@@ -34,8 +36,11 @@ export default function Details() {
   );
 
   const { mutate: signup, isPending: isSignupPending } = useSignup({
-    onSuccess: () => {
+    onSuccess: (data) => {
+      console.log(data);
+      setAccessToken(data.response.access);
       pushToast({ content: "ثبت نام با موفقیت انجام شد", type: "success" });
+      navigate("/main");
     },
     onError: ({ response }) => {
       pushToast({
@@ -69,7 +74,7 @@ export default function Details() {
             city_code: data.city,
             county: data.city,
             insurance_branch: data.insurance,
-            name: data.name ?? "",
+            name: data.name ?? "--",
             ...data,
           });
         }}

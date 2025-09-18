@@ -12,4 +12,5 @@ export default [
     route("/register/name", "./routes/register/name.tsx"),
     route("/register/details", "./routes/register/details.tsx"),
   ]),
+  route("/main", "./routes/main.tsx"),
 ] satisfies RouteConfig;
