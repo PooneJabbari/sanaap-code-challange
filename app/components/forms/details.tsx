@@ -1,12 +1,11 @@
 "use client";
 
 import type { FC } from "react";
-import { useEffect, useRef } from "react";
 
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Controller, type SubmitHandler, useForm } from "react-hook-form";
 import { z } from "zod";
-import { useDebounceValue } from "usehooks-ts";
+import { useDebounceCallback } from "usehooks-ts";
 import {
   Autocomplete,
   Box,
@@ -62,7 +61,7 @@ const data = {
     label: "حقیقی",
   },
   CTA: "ثبت نام",
-};
+} as const;
 
 const formSchema = z.object({
   agent_code: z
@@ -80,7 +79,9 @@ const formSchema = z.object({
     .string({ error: data.phone.error })
     .min(10, data.phone.error)
     .max(10, data.phone.error),
-  agency_type: z.enum(["real", "legal"], { error: data.agency_type.error }),
+  agency_type: z.enum(["real", "legal"], {
+    error: data.agency_type.error,
+  }),
   name: z.string().optional(),
 });
 
@@ -133,36 +134,13 @@ export const DetailsForm: FC<Props> = ({
   });
 
   const selectedProvince = watch("province");
-  const agentCode = watch("agent_code");
-  const [debouncedAgentCode] = useDebounceValue(agentCode, 2000);
-  const insuranceValue = watch("insurance");
-  const [debouncedInsuranceValue] = useDebounceValue(insuranceValue, 5000);
+  const agencyType = watch("agency_type");
+
   const isCityDisabled = !selectedProvince || cityOptions.length === 0;
+  const showNameField = agencyType === "real";
 
-  const lastCheckedAgentCode = useRef<string>("");
-  const lastCheckedInsuranceValue = useRef<string>("");
-
-  useEffect(() => {
-    if (
-      debouncedAgentCode &&
-      debouncedAgentCode.length > 0 &&
-      debouncedAgentCode !== lastCheckedAgentCode.current
-    ) {
-      lastCheckedAgentCode.current = debouncedAgentCode;
-      checkAgentCode(debouncedAgentCode);
-    }
-  }, [debouncedAgentCode, checkAgentCode]);
-
-  useEffect(() => {
-    if (
-      debouncedInsuranceValue &&
-      debouncedInsuranceValue.length > 0 &&
-      debouncedInsuranceValue !== lastCheckedInsuranceValue.current
-    ) {
-      lastCheckedInsuranceValue.current = debouncedInsuranceValue;
-      onChangeWopName(debouncedInsuranceValue);
-    }
-  }, [debouncedInsuranceValue, onChangeWopName]);
+  const debouncedCheckAgentCode = useDebounceCallback(checkAgentCode, 2000);
+  const debouncedOnChangeWopName = useDebounceCallback(onChangeWopName, 5000);
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
@@ -181,7 +159,12 @@ export const DetailsForm: FC<Props> = ({
               fullWidth
               label={data.agent_code.label}
               value={value}
-              onChange={onChange}
+              onChange={(e) => {
+                onChange(e.target.value);
+                if (e.target.value.length > 0) {
+                  debouncedCheckAgentCode(e.target.value);
+                }
+              }}
               error={!!errors.agent_code}
               helperText={errors.agent_code?.message}
               slotProps={{
@@ -262,14 +245,15 @@ export const DetailsForm: FC<Props> = ({
             <Autocomplete
               fullWidth
               onChange={(_, selectedOption) => {
-                onChange(selectedOption?.value || "");
+                const newValue = selectedOption?.value || "";
+                onChange(newValue);
               }}
               options={wopOptions}
               value={
                 wopOptions.find((option) => option.value === value) || null
               }
               onInputChange={(_, inputValue) => {
-                onChangeWopName(inputValue);
+                debouncedOnChangeWopName(inputValue);
               }}
               renderInput={(params) => (
                 <TextField
@@ -321,7 +305,8 @@ export const DetailsForm: FC<Props> = ({
             </FormControl>
           )}
         />
-        {watch("agency_type") === "real" && (
+
+        {showNameField && (
           <Controller
             control={control}
             name="name"
@@ -337,6 +322,7 @@ export const DetailsForm: FC<Props> = ({
             )}
           />
         )}
+
         <Button variant="contained" fullWidth type="submit" loading={isLoading}>
           {data.CTA}
         </Button>
