@@ -1,35 +1,39 @@
-import { Button, TextField, Box, Typography, Paper } from '@mui/material';
+import { Button, TextField, Box, Typography, Paper } from "@mui/material";
 
 export default function ExampleComponent() {
   return (
-    <Box className="p-6 max-w-md mx-auto">
-      <Paper className="p-6 shadow-lg">
-        <Typography variant="h4" className="mb-4 text-primary">
-          Material-UI + Tailwind
+    <Box sx={{ mx: "auto", maxWidth: "md", p: 3 }}>
+      <Paper sx={{ p: 3, boxShadow: 3 }}>
+        <Typography variant="h4" sx={{ color: "primary.main", mb: 2 }}>
+          Material-UI + MUI sx
         </Typography>
-        
-        <TextField
-          label="Phone Number"
-          variant="outlined"
-          fullWidth
-          className="mb-4"
-        />
-        
-        <div className="flex gap-2">
-          <Button 
-            variant="contained" 
-            className="bg-primary hover:bg-primary/90"
-          >
+
+        <TextField label="سلام" variant="outlined" fullWidth sx={{ mb: 2 }} />
+
+        <Box sx={{ display: "flex", gap: 1 }}>
+          <Button
+            variant="contained"
+            sx={{
+              bgcolor: "primary.main",
+              "&:hover": {
+                bgcolor: "primary.dark",
+              },
+            }}>
             Submit
           </Button>
-          
-          <Button 
-            variant="outlined" 
-            className="border-secondary text-secondary hover:bg-secondary/10"
-          >
+
+          <Button
+            variant="outlined"
+            sx={{
+              borderColor: "secondary.main",
+              color: "secondary.main",
+              "&:hover": {
+                bgcolor: "secondary.light",
+              },
+            }}>
             Cancel
           </Button>
-        </div>
+        </Box>
       </Paper>
     </Box>
   );

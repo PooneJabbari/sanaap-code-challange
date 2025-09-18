@@ -1,5 +1,3 @@
-@import "tailwindcss";
-
 @font-face {
   font-family: "IRANSansFaNum";
   src: url("/fonts/IRANSans_FaNum.woff") format("woff");
@@ -9,12 +7,13 @@
 }
 
 @theme {
-  --font-sans: "IRANSansFaNum", ui-sans-serif, system-ui, -apple-system,
-    "Segoe UI", Roboto, "Helvetica Neue", Arial, "Apple Color Emoji",
-    "Segoe UI Emoji";
+  --font-sans:
+    "IRANSansFaNum", ui-sans-serif, system-ui, -apple-system, "Segoe UI",
+    Roboto, "Helvetica Neue", Arial, "Apple Color Emoji", "Segoe UI Emoji";
   --font-display: var(--font-sans);
-  --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas,
-    "Liberation Mono", "Courier New", monospace;
+  --font-mono:
+    ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono",
+    "Courier New", monospace;
 
   --color-primary: #017785;
   --color-primary-disable: #bfd5d8;
@@ -29,12 +28,22 @@
   --color-black-d2d1: #d2d1d1;
 }
 
-/* Ensure Material-UI components work well with Tailwind */
+/* Ensure Material-UI components work properly */
 .MuiCssBaseline-root {
-  font-family: "IRANSansFaNum", ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Apple Color Emoji", "Segoe UI Emoji" !important;
+  font-family:
+    "IRANSansFaNum",
+    ui-sans-serif,
+    system-ui,
+    -apple-system,
+    "Segoe UI",
+    Roboto,
+    "Helvetica Neue",
+    Arial,
+    "Apple Color Emoji",
+    "Segoe UI Emoji" !important;
 }
 
-/* Override Material-UI's default styles to work with Tailwind */
+/* Override Material-UI's default styles */
 .MuiButton-root {
   text-transform: none !important;
 }

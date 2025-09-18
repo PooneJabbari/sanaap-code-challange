@@ -1,17 +1,13 @@
 import type { Route } from "./+types/phone-number";
 import ExampleComponent from "../components/ExampleComponent";
-
-export function meta({}: Route.MetaArgs) {
-  return [
-    { title: "New React Router App" },
-    { name: "description", content: "Welcome to React Router!" },
-  ];
-}
+import { Box, Typography } from "@mui/material";
 
 export default function PhoneNumber() {
   return (
-    <div className="min-h-screen flex items-center justify-center bg-black-f6f8">
-      <ExampleComponent />
-    </div>
+    <Box sx={{ display: "flex", flexDirection: "column", gap: 1 }}>
+      <Typography variant="h6" sx={{ color: "grey.500" }}>
+        شماره تلفن
+      </Typography>
+    </Box>
   );
 }

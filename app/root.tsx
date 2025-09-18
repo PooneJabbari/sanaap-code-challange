@@ -8,6 +8,7 @@ import {
 } from "react-router";
 import { ThemeProvider } from "@mui/material/styles";
 import CssBaseline from "@mui/material/CssBaseline";
+import { Box, Typography } from "@mui/material";
 import theme from "./theme";
 
 import "./app.css";
@@ -55,14 +56,14 @@ export function ErrorBoundary({ error }: Route.ErrorBoundaryProps) {
   }
 
   return (
-    <main className="container mx-auto p-4 pt-16">
-      <h1>{message}</h1>
-      <p>{details}</p>
+    <Box sx={{ maxWidth: "1200px", mx: "auto", p: 4, pt: 16 }}>
+      <Typography variant="h1">{message}</Typography>
+      <Typography>{details}</Typography>
       {stack && (
-        <pre className="w-full overflow-x-auto p-4">
+        <Box component="pre" sx={{ width: "100%", overflowX: "auto", p: 4 }}>
           <code>{stack}</code>
-        </pre>
+        </Box>
       )}
-    </main>
+    </Box>
   );
 }
