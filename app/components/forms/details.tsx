@@ -139,8 +139,8 @@ export const DetailsForm: FC<Props> = ({
   const isCityDisabled = !selectedProvince || cityOptions.length === 0;
   const showNameField = agencyType === "real";
 
-  const debouncedCheckAgentCode = useDebounceCallback(checkAgentCode, 2000);
-  const debouncedOnChangeWopName = useDebounceCallback(onChangeWopName, 5000);
+  const debouncedCheckAgentCode = useDebounceCallback(checkAgentCode, 1000);
+  const debouncedOnChangeWopName = useDebounceCallback(onChangeWopName, 1000);
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
