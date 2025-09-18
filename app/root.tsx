@@ -13,19 +13,32 @@ import { prefixer } from "stylis";
 import rtlPlugin from "@mui/stylis-plugin-rtl";
 import CssBaseline from "@mui/material/CssBaseline";
 import { Box, Typography } from "@mui/material";
-import theme from "./theme";
 
 import "./app.css";
 import type { Route } from "./+types/root";
+import { ReactQueryClientProvider } from "./api/provider";
+import { ToastContainer } from "./components/toast";
+import theme from "./theme";
 
 const rtlCache = createCache({
   key: "muirtl",
   stylisPlugins: [prefixer, rtlPlugin],
+  prepend: true,
 });
+const Providers = ({ children }: { children: React.ReactNode }) => (
+  <CacheProvider value={rtlCache}>
+    <ThemeProvider theme={theme}>
+      <CssBaseline />
+      <ReactQueryClientProvider>
+        <ToastContainer>{children}</ToastContainer>
+      </ReactQueryClientProvider>
+    </ThemeProvider>
+  </CacheProvider>
+);
 
 export function Layout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="fa-IR" dir="rtl">
+    <html lang="fa-IR">
       <head>
         <meta charSet="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -33,12 +46,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
         <Links />
       </head>
       <body>
-        <CacheProvider value={rtlCache}>
-          <ThemeProvider theme={theme}>
-            <CssBaseline />
-            {children}
-          </ThemeProvider>
-        </CacheProvider>
+        <Providers>{children}</Providers>
         <ScrollRestoration />
         <Scripts />
       </body>
