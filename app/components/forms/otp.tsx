@@ -13,7 +13,7 @@ const data = {
 };
 
 const formSchema = z.object({
-  otp: z.string(),
+  code: z.string().length(5),
 });
 
 type FormSchema = z.infer<typeof formSchema>;
@@ -59,7 +59,7 @@ export const OtpForm: FC<Props> = ({
           </Typography>
         </Stack>
         <Controller
-          name="otp"
+          name="code"
           control={control}
           rules={{ validate: (value) => value.length === 5 }}
           render={({ field }) => (
@@ -68,7 +68,7 @@ export const OtpForm: FC<Props> = ({
         />
         <CountDown count={120} finishedText={resend} onClick={onResend} />
         <Button
-          disabled={watch("otp")?.length !== 5}
+          disabled={watch("code")?.length !== 5}
           variant="contained"
           fullWidth
           type="submit"

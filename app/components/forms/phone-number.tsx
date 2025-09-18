@@ -14,14 +14,13 @@ const data = {
   phoneNumber: {
     label: "تلفن همراه",
     placeholder: "مثال: 09123456789",
+    error: "شماره موبایل را به درستی وارد کنید.",
   },
   CTA: "ورود",
 };
 
 const formSchema = z.object({
-  phone_number: z
-    .string()
-    .regex(mobileRegex, "شماره موبایل را به درستی وارد کنید."),
+  phone_number: z.string().regex(mobileRegex, data.phoneNumber.error),
 });
 
 type FormSchema = z.infer<typeof formSchema>;
@@ -71,6 +70,7 @@ export const PhoneNumberForm: FC<Props> = ({ onSubmit, isLoading }) => {
           name="phone_number"
           render={({ field: { onChange, value } }) => (
             <TextField
+              type="tel"
               fullWidth
               label={phoneNumber.label}
               placeholder={phoneNumber.placeholder}
