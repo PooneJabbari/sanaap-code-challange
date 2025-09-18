@@ -3,6 +3,7 @@ import { PhoneNumberForm } from "~/components/forms/phone-number";
 import { useCreateOtp } from "~/api/auth";
 import { pushToast } from "~/components/toast";
 import { useState } from "react";
+import { OtpForm } from "~/components/forms/otp";
 
 export default function PhoneNumber() {
   const [phoneNumber, setPhoneNumber] = useState("");
@@ -25,10 +26,19 @@ export default function PhoneNumber() {
 
   return (
     <Box sx={{ width: "100%" }}>
-      <PhoneNumberForm
-        onSubmit={(data) => createOtpMutation.mutate(data)}
-        isLoading={createOtpMutation.isPending}
-      />
+      {!phoneNumber ? (
+        <PhoneNumberForm
+          onSubmit={(data) => createOtpMutation.mutate(data)}
+          isLoading={createOtpMutation.isPending}
+        />
+      ) : (
+        <OtpForm
+          phoneNumber={"888"}
+          onResend={() => console.log("ارسال مجدد کد")}
+          onSubmit={(data) => console.log(data)}
+          isLoading={false}
+        />
+      )}
     </Box>
   );
 }
