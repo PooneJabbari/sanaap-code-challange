@@ -11,6 +11,10 @@ import { Box, Button, Stack, TextField, Typography } from "@mui/material";
 const data = {
   header: "شماره موبایل خود را وارد نمایید.",
   subheader: "کد تایید برای شما ارسال خواهد شد.",
+  phoneNumber: {
+    label: "تلفن همراه",
+    placeholder: "مثال: 09123456789",
+  },
   CTA: "ورود",
 };
 
@@ -28,7 +32,7 @@ type Props = {
 };
 
 export const PhoneNumberForm: FC<Props> = ({ onSubmit, isLoading }) => {
-  const { header, subheader, CTA } = data;
+  const { header, subheader, CTA, phoneNumber } = data;
 
   const {
     handleSubmit,
@@ -68,8 +72,8 @@ export const PhoneNumberForm: FC<Props> = ({ onSubmit, isLoading }) => {
           render={({ field: { onChange, value } }) => (
             <TextField
               fullWidth
-              label="شماره تماس"
-              placeholder="مثال: 09123456789"
+              label={phoneNumber.label}
+              placeholder={phoneNumber.placeholder}
               value={value}
               onChange={onChange}
               helperText={errors.phone_number?.message}
